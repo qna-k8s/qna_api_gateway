@@ -1,0 +1,8 @@
+apiVersion: v2
+name: qna_apigateway_chart
+description: A Helm chart for deploying qna_apigateway microservice to cluster
+sources:
+    - https://github.com/qna-k8s
+type: application
+version: 0.1.0
+appVersion: "2.1.0"

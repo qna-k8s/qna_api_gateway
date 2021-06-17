@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "storage.deployment.name" . }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels: 
+{{- include "storage.deployment.selector" . | indent 6 }}
+  template:
+    metadata:
+      labels:
+{{- include "storage.deployment.selector" . | indent 8 }}
+    spec:
+      containers:
+      - name: {{ template "storage.container.name" . }}
+        image: {{ .Values.pod.image }}
+        args: {{ .Values.pod.args }}
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: {{ .Values.DB_PASSWORD }}
+        - name: MYSQL_DATABASE
+          value: {{ .Values.DB_NAME }}

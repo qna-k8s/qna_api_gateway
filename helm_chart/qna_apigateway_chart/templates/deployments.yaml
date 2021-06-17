@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+{{- include "api_gateway.deployment.name" . | indent 2 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:  
+{{- include "api_gateway.deployment.selector" . | indent 6 }}
+  template:
+    metadata:
+      labels:
+{{- include "api_gateway.deployment.selector" . | indent 8 }}
+    spec:
+      containers:
+        - name: {{ template "api_gateway.deployment.containerName" . }}
+          image: {{ .Values.imageName | default "trivedhaudurthi/qna_apigateway:v1" }}
+          imagePullPolicy: {{ .Values.api_gateway.deployment.imagePullPolicy }}
+          env:
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: {{ .Values.DB_PASSWORD }}

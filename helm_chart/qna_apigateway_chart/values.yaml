@@ -1,0 +1,21 @@
+# Default values for qna_apigateway_chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+api_gateway:
+  deployment:
+    name: qna-apigateway-deployment
+    selectorLabel:
+      app: qna-apigateway-pod
+    replicas: 1
+    imagePullPolicy: IfNotPresent
+    podName: qna-apigateway-pod
+    containerName: qna-apigateway-container
+  service:
+    name: qna-apigateway-service
+    selectorLabel:
+      app: qna-apigateway-pod
+    ports:
+    - port: 8080
+      name: http
+    type: ClusterIP

@@ -1,0 +1,9 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: {{ template "storage.storageClass.name" . }}
+provisioner: {{ .Values.storageClass.provisioner }}
+parameters:
+  {{- range $key, $val := .Values.storageClass.parameters }}
+  {{ $key }}: {{ $val }}  
+  {{- end }}

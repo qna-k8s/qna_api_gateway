@@ -1,0 +1,46 @@
+# Config values for deployment
+deployment:
+  name: qna-mysql-deployment
+  replicas: 1
+  selectorLabels:
+    database: qna_mysql
+
+# Config values for pods in the deployment spec
+pod:
+  containerName: qna-mysql
+  image: mysql:5.7
+  # Mysql ignores this directory in the storage block
+  args: ["--ignore-db-dir=lost+found"]
+
+# Volume mounts config for mysql pod
+volumeMounts:
+  - name: mysql-pesistent-volume
+    mountPath: var/lib/mysql
+# Mount of the mysql container. We mount PV on this path
+
+# Config values of the PVC
+pvc:
+  name: mysql-claim
+  volumeMode: Filesystem
+  requestedStorage: 4Gi 
+  accessModes:
+    - ReadWriteOnce
+# Storage class configuration values
+storageClass:
+  name: standard
+  # Requests new AWS EBS storage block
+  provisioner: kubernetes.io/aws-ebs
+  # Type of the EBS storage block
+  parameters:
+    type: gp2
+
+# Config values of the mysql service
+service:
+  name: qna-mysql-service
+  selectorLable:
+    database: qna_mysql
+  ports:
+  - name: db-port
+    port: 3306
+  type: ClusterIP
+
