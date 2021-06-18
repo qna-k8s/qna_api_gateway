@@ -57,14 +57,15 @@ jobs:
       - name: Configure Kubectl
         run: |
           aws eks update-kubeconfig --name qna_cluster
-      - name: Install helm charts
+      - name: Checkout the repo
         uses: actions/checkout@v2
+      - name: Install helm charts
         run: |
             ./deploy_mysql_chart.sh
             ./deploy_api_gateway_chart.sh
         env:
           imageName: trivedhaudurthi/qna_apigateway:v${{ github.run_number }}
           dbPassword: ${{ secrets.DB_PASSWORD }}
-        
+          dbName: qna_db
 
 
