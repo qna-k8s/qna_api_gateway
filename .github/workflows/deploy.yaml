@@ -42,6 +42,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Install helm charts
         run: |
+            chmod 777 ./deploy_api_gateway_chart.sh
+            chmod 777 ./deploy_mysql_chart.sh
             ./deploy_mysql_chart.sh
             ./deploy_api_gateway_chart.sh
         env:
