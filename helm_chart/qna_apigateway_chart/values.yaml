@@ -11,6 +11,16 @@ api_gateway:
     imagePullPolicy: IfNotPresent
     podName: qna-apigateway-pod
     containerName: qna-apigateway-container
+    memory_request: "400Mi"
+    cpu_request: "400m"
+    container_port: 8080
+    port_name: liveness-port
+    liveness_path: /v1/question
+    liveness_failure_threshold: 2
+    liveness_period_seconds: 10
+    startup_failure_threshold: 30
+    startup_period_seconds: 10
+    readiness_period_seconds: 20
   service:
     name: qna-apigateway-service
     selectorLabel:

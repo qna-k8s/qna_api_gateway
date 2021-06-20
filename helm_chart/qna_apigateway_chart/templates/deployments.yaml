@@ -19,3 +19,29 @@ spec:
           env:
             - name: SPRING_DATASOURCE_PASSWORD
               value: {{ .Values.DB_PASSWORD }}
+          resources:
+            requests:
+              memory: {{ .Values.api_gateway.deployment.memory_request }}
+              cpu: {{ .Values.api_gateway.deployment.cpu_request }}
+          ports:
+            - name: {{ .Values.api_gateway.deployment.port_name }}
+              containerPort: {{ .Values.api_gateway.deployment.container_port }}
+              hostPort: {{ .Values.api_gateway.deployment.container_port }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.api_gateway.deployment.liveness_path }}
+              port: {{ .Values.api_gateway.deployment.port_name }}
+            failureThreshold: {{ .Values.api_gateway.deployment.liveness_failure_threshold }}
+            periodSeconds: {{ .Values.api_gateway.deployment.liveness_period_seconds }}
+          startupProbe:
+            httpGet:
+              path: {{ .Values.api_gateway.deployment.liveness_path }}
+              port: {{ .Values.api_gateway.deployment.port_name }}
+            failureThreshold: {{ .Values.api_gateway.deployment.startup_failure_threshold }}
+            periodSeconds: {{ .Values.api_gateway.deployment.startup_period_seconds }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.api_gateway.deployment.liveness_path }}
+              port: {{ .Values.api_gateway.deployment.port_name }}
+            periodSeconds: {{ .Values.api_gateway.deployment.readiness_period_seconds }}
+          
