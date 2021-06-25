@@ -1,0 +1,12 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: qna-hpa-{{ .Release.Name }}
+spec:
+  maxReplicas: 10
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    {{- include "api_gateway.deployment.name" . | indent 4 }}
+  targetCPUUtilizationPercentage: {{ .Values.api_gateway.hpa.targetCPUUtilizationPercentage }}

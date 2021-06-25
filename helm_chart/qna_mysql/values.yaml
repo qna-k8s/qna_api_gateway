@@ -4,6 +4,8 @@ deployment:
   replicas: 1
   selectorLabels:
     database: qna_mysql
+  memory_request: "300Mi"
+  cpu_request: "200m"
 
 # Config values for pods in the deployment spec
 pod:

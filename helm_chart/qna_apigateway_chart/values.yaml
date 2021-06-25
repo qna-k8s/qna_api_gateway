@@ -29,3 +29,5 @@ api_gateway:
     - port: 8080
       name: http
     type: ClusterIP
+  hpa:
+    targetCPUUtilizationPercentage: 50

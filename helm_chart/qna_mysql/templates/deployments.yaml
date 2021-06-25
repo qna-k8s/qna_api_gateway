@@ -16,8 +16,14 @@ spec:
       - name: {{ template "storage.container.name" . }}
         image: {{ .Values.pod.image }}
         args: {{ .Values.pod.args }}
+        {{- include "storage.volumeMounts" . | indent 8 }}
+        resources:
+            requests:
+              memory: {{ .Values.deployment.memory_request }}
+              cpu: {{ .Values.deployment.cpu_request }}
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: {{ .Values.DB_PASSWORD }}
         - name: MYSQL_DATABASE
           value: {{ .Values.DB_NAME }}
+      {{- include "storage.volumes" . | indent 6 }}
