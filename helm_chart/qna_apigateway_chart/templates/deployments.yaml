@@ -9,8 +9,6 @@ spec:
 {{- include "api_gateway.deployment.selector" . | indent 6 }}
   template:
     metadata:
-      annotations:
-{{- toYaml .Values.scrapeConfig | nindent 8 }}
       labels:
 {{- include "api_gateway.deployment.selector" . | indent 8 }}
     spec:
