@@ -31,3 +31,8 @@ api_gateway:
     type: ClusterIP
   hpa:
     targetCPUUtilizationPercentage: 50
+scrapeConfig:
+  prometheus.io/scrape: 'true'
+  prometheus.io/path: '/actuator/prometheus'
+  prometheus.io/port: 8080
+
