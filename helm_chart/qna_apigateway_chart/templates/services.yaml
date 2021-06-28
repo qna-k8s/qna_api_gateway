@@ -3,7 +3,7 @@ kind: Service
 metadata: 
   name: {{ .Values.api_gateway.service.name }}
   labels:
-    service: qna-api-gateway-service
+    {{- toYaml .Values.api_gateway.service.labels | nindent 4 }}
 spec:
   selector:
 {{- include "api_gateway.service.selector" . | indent 4 }}
