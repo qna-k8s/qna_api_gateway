@@ -41,7 +41,7 @@ spec:
             periodSeconds: {{ .Values.api_gateway.deployment.startup_period_seconds }}
           readinessProbe:
             httpGet:
-              path: {{ .Values.api_gateway.deployment.liveness_path }}
+              path: {{ .Values.api_gateway.deployment.readiness_path }}
               port: {{ .Values.api_gateway.deployment.port_name }}
             periodSeconds: {{ .Values.api_gateway.deployment.readiness_period_seconds }}
           

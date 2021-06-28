@@ -15,12 +15,13 @@ api_gateway:
     cpu_request: "400m"
     container_port: 8080
     port_name: liveness-port
-    liveness_path: /v1/question
-    liveness_failure_threshold: 2
+    liveness_path: /actuator/health/liveness
+    liveness_failure_threshold: 3
     liveness_period_seconds: 10
     startup_failure_threshold: 30
     startup_period_seconds: 10
     readiness_period_seconds: 20
+    readiness_path: /actuator/health/readiness
   service:
     name: qna-apigateway-service
     labels: 
