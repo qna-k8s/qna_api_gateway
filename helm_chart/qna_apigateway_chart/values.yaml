@@ -23,6 +23,8 @@ api_gateway:
     readiness_period_seconds: 20
   service:
     name: qna-apigateway-service
+    labels: 
+      service: qna-api-gateway-service
     selectorLabel:
       app: qna-apigateway-pod
     ports:
